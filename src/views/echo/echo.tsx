@@ -16,6 +16,16 @@ import { AudioRecorder } from "react-audio-voice-recorder";
 import { DragAndDropZone } from "../../components/dragNdropZone/DragAndDropZone";
 import { ThemeSettings } from "../../theme/theme";
 
+const HighlightedText = ({ highlightedText, before, after }: any) => {
+  return (
+    <p>
+      {before}
+      <span style={{ backgroundColor: "yellow" }}>{highlightedText}</span>
+      {after}
+    </p>
+  );
+};
+
 type AlertState = {
   open: boolean;
   type: AlertColor;
@@ -49,6 +59,12 @@ function Echo() {
   const sm = useMediaQuery(theme.breakpoints.down("sm"));
   const [audioText, setAudioText] = useState<string>("");
   const audioRef = useRef(null);
+  const audioTextRef = useRef(null);
+  const [highlightedText, setHighlightedText] = useState({
+    before: "",
+    highlightedText: "",
+    after: "",
+  });
 
   const urlSafeToRegularBase64 = (urlSafe: string) => {
     return urlSafe?.replace(/_/g, "/").replace(/-/g, "+") || "";
@@ -116,6 +132,28 @@ function Echo() {
     katebFn(formData);
   };
 
+  const highlightText = (currentTime: any) => {
+    let word = nateqRes.data.durations.find(
+      (item: any) => currentTime >= item[1] && currentTime <= item[2]
+    );
+
+    if (word) {
+      word = word[0];
+      setHighlightedText({
+        before: audioText.split(word)[0],
+        highlightedText: word,
+        after: audioText.split(word)[1],
+      });
+    }
+  };
+  
+  const timeUpdate = (event: any) => {
+    const minutes = Math.floor(event.target.currentTime / 60);
+    const seconds = Math.floor(event.target.currentTime - minutes * 60);
+    const milliseconds = Math.floor(event.target.currentTime * 1000) % 1000;
+    const currentTime = parseFloat(`${seconds}.${milliseconds}`);
+    highlightText(currentTime);
+  };
   return (
     <PageContainer
       title='RDI - Echo service'
@@ -191,9 +229,18 @@ function Echo() {
                 Generated text from audio
               </Typography>
               <Box sx={{ px: 2 }}>
-                <Typography variant='body1' sx={{ marginTop: 2 }}>
-                  {audioText}
-                </Typography>
+                {!highlightedText?.highlightedText ? (
+                  <Typography
+                    variant='body1'
+                    sx={{ marginTop: 2 }}
+                    id={"AudioText"}
+                    ref={audioTextRef}
+                  >
+                    {audioText}
+                  </Typography>
+                ) : (
+                  <HighlightedText {...highlightedText} />
+                )}
               </Box>
             </>
           )}
@@ -205,7 +252,7 @@ function Echo() {
                 Generated audio from text
               </Typography>
               <Box>
-                <audio ref={audioRef} controls />
+                <audio ref={audioRef} controls onTimeUpdate={timeUpdate} />
               </Box>
             </>
           )}
