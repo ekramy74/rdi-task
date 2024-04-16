@@ -8,10 +8,10 @@ const App: FC = () => {
   const routing = useRoutes(Router);
 
   return (
-    <>
+    <main>
       <CssBaseline />
       <ScrollToTop>{routing}</ScrollToTop>
-    </>
+    </main>
   );
 };
 
