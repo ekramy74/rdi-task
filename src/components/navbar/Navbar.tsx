@@ -47,7 +47,7 @@ function Navbar() {
         color: "#000",
         boxShadow: "none",
         borderBottom: (theme) => `1px solid ${theme.palette.grey[300]}`,
-        mb: 2,
+        mb: 0,
       }}
     >
       <Toolbar>
