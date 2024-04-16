@@ -21,6 +21,9 @@ export default (mode: string) => {
           rewrite: (path) => path.replace(/^\/apis/, ""),
         },
       },
+      port: 8080,
+      strictPort: true,
+      host: true,
     },
   });
 };
