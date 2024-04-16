@@ -1,11 +1,11 @@
-import {defineConfig, loadEnv} from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 import svgrPlugin from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default (mode: string) => {
-  process.env = {...process.env, ...loadEnv(mode, process.cwd())};
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
   return defineConfig({
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
     resolve: {
@@ -18,19 +18,8 @@ export default (mode: string) => {
         "/apis": {
           target: process.env.VITE_APP_BASE_API_URL,
           changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/apis/, ""),
         },
-        "/mefic": {
-          target: process.env.VITE_APP_BASE_API_URL,
-          changeOrigin: true,
-        },
-        "/sales": {
-          target: process.env.VITE_APP_BASE_API_URL_ALPHA,
-          changeOrigin: true
-        },
-        "/api": {
-          target: process.env.VITE_APP_BASE_API_URL_NODE,
-          changeOrigin: true
-        }
       },
     },
   });
