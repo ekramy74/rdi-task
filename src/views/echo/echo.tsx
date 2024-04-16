@@ -132,7 +132,7 @@ function Echo() {
     katebFn(formData);
   };
 
-  const onAudioPlay = (currentTime: any) => {
+  const highlightText = (currentTime: any) => {
     let word = nateqRes.data.durations.find(
       (item: any) => currentTime >= item[1] && currentTime <= item[2]
     );
@@ -146,12 +146,13 @@ function Echo() {
       });
     }
   };
+  
   const timeUpdate = (event: any) => {
     const minutes = Math.floor(event.target.currentTime / 60);
     const seconds = Math.floor(event.target.currentTime - minutes * 60);
     const milliseconds = Math.floor(event.target.currentTime * 1000) % 1000;
     const currentTime = parseFloat(`${seconds}.${milliseconds}`);
-    onAudioPlay(currentTime);
+    highlightText(currentTime);
   };
   return (
     <PageContainer
