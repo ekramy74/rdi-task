@@ -1,6 +1,6 @@
 import { Box, Button, Typography, useMediaQuery } from "@mui/material";
 import PageContainer from "../../components/container/PageContainer";
-import landingImg from "../../assets/imgs/landingImg.jpg";
+import aboutImg from "../../assets/imgs/about.jpg";
 import echoServiceImg from "../../assets/imgs/whoAreWeVector.webp";
 import { ThemeSettings } from "../../theme/theme";
 import { useNavigate } from "react-router-dom";
@@ -11,11 +11,8 @@ function Home() {
   const md = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
   return (
-    <PageContainer title='RDI - Home' description='This is the landing page'>
-      <LandingImage
-        title=' Welcome to Echo service'
-        backgroundImage={landingImg}
-      />
+    <PageContainer title='RDI - about' description='This is the about page'>
+      <LandingImage title=' About Echo service' backgroundImage={aboutImg} />
       <Box
         sx={{
           px: 30,
@@ -29,6 +26,9 @@ function Home() {
           rowGap: 5,
         }}
       >
+        <Box>
+          <img src={echoServiceImg} alt='echo service' width={500} />
+        </Box>
         <Box
           sx={{
             width: md ? "100%" : "50%",
@@ -38,28 +38,26 @@ function Home() {
             Echo service
           </Typography>
           <Typography variant='body1' sx={{ mt: 5 }}>
-            Welcome to our groundbreaking service that is poised to
-            revolutionize the landscape of artificial intelligence. Our
-            innovative platform offers users the unparalleled capability to
-            transform Arabic audio files effortlessly. With just a few clicks,
-            users can upload their Arabic audio files or even record fresh
-            content directly from their microphone. Our service then employs
-            cutting-edge technology to imbue these audio clips with a futuristic
-            electronic voice, breathing new life into every sound. But that's
-            not all – we go the extra mile by incorporating a unique echo
-            effect, repeating the final word three times, leaving a lasting
-            impression on every listener.
+            At our core, we are driven by a relentless passion for innovation
+            and a commitment to pushing the boundaries of what's possible in the
+            realm of artificial intelligence. Our journey began with a vision to
+            revolutionize how Arabic audio content is experienced and interacted
+            with. Through tireless research and development, we've crafted a
+            groundbreaking service that seamlessly blends advanced audio
+            processing techniques with state-of-the-art AI algorithms. Our
+            mission is simple yet ambitious – to empower individuals and
+            businesses alike with the tools they need to transform ordinary
+            audio into extraordinary experiences. Join us on this exhilarating
+            journey as we continue to push the limits of innovation and redefine
+            the future of AI-powered audio technologies.
           </Typography>
           <Button
             variant='outlined'
             sx={{ mt: 2 }}
-            onClick={() => navigate("/about")}
+            onClick={() => navigate("/echo")}
           >
-            Learn more
+            Try it now
           </Button>
-        </Box>
-        <Box>
-          <img src={echoServiceImg} alt='echo service' width={500} />
         </Box>
       </Box>
     </PageContainer>

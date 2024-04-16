@@ -6,6 +6,7 @@ import Navbar from "../components/navbar/Navbar";
 /* ****Pages***** */
 const Home = Loadable(lazy(() => import("../views/home/home")));
 const Echo = Loadable(lazy(() => import("../views/echo/echo")));
+const About = Loadable(lazy(() => import("../views/about/about")));
 const PageNotFound = Loadable(
   lazy(() => import("../components/NotFound/pageNotFound"))
 );
@@ -23,6 +24,7 @@ const Router = [
       { path: "/", element: <Navigate to='/home' /> },
       { path: "/home", exact: true, element: <Home /> },
       { path: "/echo", exact: true, element: <Echo /> },
+      { path: "/about", exact: true, element: <About /> },
 
       { path: "*", element: <PageNotFound /> },
     ],
