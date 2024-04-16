@@ -106,8 +106,10 @@ function Echo() {
       });
       const base64 = urlSafeToRegularBase64(nateqRes.data.wave);
       const audioUrl = `data:audio/wav;base64,${base64}`;
-      if (audioRef.current)
+      if (audioRef.current) {
         (audioRef.current as HTMLAudioElement).src = audioUrl;
+        (audioRef.current as HTMLAudioElement).play();
+      }
     }
   }, [isNateqSuccess, nateqRes]);
 
@@ -146,7 +148,7 @@ function Echo() {
       });
     }
   };
-  
+
   const timeUpdate = (event: any) => {
     const minutes = Math.floor(event.target.currentTime / 60);
     const seconds = Math.floor(event.target.currentTime - minutes * 60);
